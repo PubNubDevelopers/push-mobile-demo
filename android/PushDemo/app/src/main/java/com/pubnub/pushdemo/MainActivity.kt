@@ -1,4 +1,4 @@
-package com.pubnub.pushdemotest
+package com.pubnub.pushdemo
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

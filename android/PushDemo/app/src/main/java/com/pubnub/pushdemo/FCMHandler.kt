@@ -1,4 +1,4 @@
-package com.pubnub.pushdemotest
+package com.pubnub.pushdemo
 
 import android.app.NotificationManager
 import android.app.PendingIntent

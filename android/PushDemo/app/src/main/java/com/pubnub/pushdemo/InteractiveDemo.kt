@@ -1,4 +1,4 @@
-package com.pubnub.pushdemotest
+package com.pubnub.pushdemo
 
 import android.content.Context
 import android.util.Log

@@ -1,4 +1,4 @@
-package com.pubnub.pushdemotest
+package com.pubnub.pushdemo
 
 import com.google.firebase.installations.FirebaseInstallations
 import com.pubnub.api.PNConfiguration
