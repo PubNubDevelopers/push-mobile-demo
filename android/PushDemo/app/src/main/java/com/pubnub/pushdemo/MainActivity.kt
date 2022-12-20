@@ -34,6 +34,17 @@ class MainActivity : AppCompatActivity() {
         Log.d(LOG_TAG, "Identifier is: " + clientIdentifier.toString())
         InteractiveDemo().actionComplete(applicationContext, clientIdentifier, "Launch Android Application")
         createNotificationChannel()
+        getToken()
+        val txtReadme = findViewById<TextView>(R.id.txtReadme)
+        val readme = SpannableStringBuilder()
+            .bold { append("Instructions:\n\n") }
+            .bold { append("Please Wait...\n\n")}
+            .append("Web-based emulator is still loading.  This may take several seconds.  This text will update when the emulator is ready.\n\n")
+        txtReadme.text = readme;
+    }
+
+    private fun getToken()
+    {
         val pubnub: PubNub = PubNubObj().getInstance() //Using a singleton PubNub object to persist across the activities.
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             try {
@@ -45,32 +56,27 @@ class MainActivity : AppCompatActivity() {
                         channels = listOf("push-demo") //provide a list of channels to enable push on them.
                     ).async { result, status ->
                         Log.d(LOG_TAG, "Status: $status, Result: $result")
+                        val txtReadme = findViewById<TextView>(R.id.txtReadme)
+                        val readme = SpannableStringBuilder()
+                            .bold { append("Instructions:\n\n") }
+                            .append("This application will receive push messages sent to the 'push-demo' channel.\n\n")
+                            .append("Messages sent with the ")
+                            .bold { append("'data' ") }
+                            .append("payload will always be displayed as a notification, regardless of whether the app is in the foreground or background.\n\n")
+                            .append("Messages sent with the ")
+                            .bold { append("'notification' ") }
+                            .append("payload will be shown as a notification when the app is in the background but as a snackbar when the app is in the foreground.")
+                        txtReadme.text = readme;
                     }
                 }
             } catch (e: Exception) {
                 //  This issue seems to happen on a newly launched emulator through Appetize.io ('switching to device').  Seems to be a known issue.
                 //  https://stackoverflow.com/questions/62562243/java-io-ioexception-authentication-failed-in-android-firebase-and-service-not
-                Toast.makeText(
-                    this,
-                    "Firebase is not ready.  Please re-launch Push Demo",
-                    Toast.LENGTH_LONG
-                ).show();
-                Handler(Looper.getMainLooper()).postDelayed(Runnable { this@MainActivity.finish() }, 2000)
+                Handler(Looper.getMainLooper()).postDelayed(Runnable { getToken(); }, 1000)
             }
-
         }
-        val txtReadme = findViewById<TextView>(R.id.txtReadme)
-        val readme = SpannableStringBuilder()
-            .bold { append("Instructions:\n\n") }
-            .append("This application will receive push messages sent to the 'push-demo' channel.\n\n")
-            .append("Messages sent with the ")
-            .bold { append("'data' ") }
-            .append("payload will always be displayed as a notification, regardless of whether the app is in the foreground or background.\n\n")
-            .append("Messages sent with the ")
-            .bold { append("'notification' ") }
-            .append("payload will be shown as a notification when the app is in the background but as a snackbar when the app is in the foreground.")
-        txtReadme.text = readme;
     }
+
 
     override fun onPause() {
         super.onPause()
