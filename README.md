@@ -9,7 +9,7 @@ PubNub's Mobile Push Notifications feature bridges native PubNub publishing with
 
 ## Demo
 
-[//]: # (A hosted version of this demo can be found at http://www.pubnub.com/demos/push/)
+A hosted version of this demo can be found at http://www.pubnub.com/demos/push/
 
 ## Features
 
