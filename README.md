@@ -1,4 +1,4 @@
-# PubNub Push Notification Demo for Android
+# PubNub Mobile Push Notification Demo for Android
 > Application to show how to receive a PubNub message as a FCM (Firebase Cloud Message) on Android that has been sent over the PubNub network.
 
 Despite the advantages of in-app messaging, there are cases where you may want to deliver messages via Mobile Push Notifications. PubNub's Mobile Push Gateway provides a method to deliver messages fast and reliably regardless of whether the application is in the foreground or background on iOS and Android devices.
@@ -46,7 +46,7 @@ To run this project yourself you will need a PubNub account and a Firebase Proje
 
 ### Building and Running
 
-For a detailed walkthrough describing how to add Push to your PubNub solution please see our [Push Tutorial](https://www.pubnub.com/tutorials/push-notifications/)
+For a detailed walkthrough describing how to add Push to your PubNub solution please see our [Mobile Push Tutorial](https://www.pubnub.com/tutorials/push-notifications/)
 
 1. Change the package name of this application to match the package name you specified in your Firebase Console when you created the app
 
@@ -73,7 +73,7 @@ Please fork the repository if you'd like to contribute. Pull requests are always
 
 ## Further Information
 
-Checkout the following links for more information on adding Push to your PubNub solution:
+Checkout the following links for more information on adding Mobile Push to your PubNub solution:
 
-- [Push Tutorial for both FCM and APNS](https://www.pubnub.com/tutorials/push-notifications/)
-- [PubNub Push Documentation for FCM and APNS](https://www.pubnub.com/docs/general/push/send)
+- [Mobile Push Tutorial for both FCM and APNS](https://www.pubnub.com/tutorials/push-notifications/)
+- [PubNub Mobile Push Documentation for FCM and APNS](https://www.pubnub.com/docs/general/push/send)
