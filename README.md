@@ -40,7 +40,7 @@ To run this project yourself you will need a PubNub account and a Firebase Proje
 
 1. Click your new app to open its settings, then click its keyset.
 
-1. Add your Firebase servicer token to your PubNub dashboard.  
+1. Add your Firebase service token to your PubNub dashboard. (See our [Mobile Android Push Notifications](https://www.pubnub.com/docs/general/push/android) documentation for full steps)  
 
 1. Copy the Publish and Subscribe keys and paste them into your app as specified in the next step.
 
