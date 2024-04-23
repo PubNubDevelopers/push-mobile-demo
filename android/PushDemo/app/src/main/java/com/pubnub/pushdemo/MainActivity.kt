@@ -3,6 +3,7 @@ package com.pubnub.pushdemo
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -11,8 +12,12 @@ import android.text.SpannableStringBuilder
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.text.bold
+import androidx.core.text.underline
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
@@ -26,6 +31,18 @@ import org.greenrobot.eventbus.ThreadMode
 class MainActivity : AppCompatActivity() {
     private val LOG_TAG = "PNPushDemo"
     private var clientIdentifier: String? = null
+    private var pushNotificationPermission = true
+    private val pushNotificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (!granted)
+        {
+            Log.e(LOG_TAG, "Notification permissions were not granted")
+            pushNotificationPermission = false
+            val txtReadme = findViewById<TextView>(R.id.txtReadme)
+            txtReadme.text = "Please grant \nnotification \npermissions\n\nYou can either do this manually through Android settings, or uninstall and reinstall this application.  If you are using the online hosted Interactive demo, you can refresh the page"
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +58,8 @@ class MainActivity : AppCompatActivity() {
             .bold { append("Please Wait...\n\n")}
             .append("Web-based emulator is still loading.  This may take several seconds.  This text will update when the emulator is ready.\n\n")
         txtReadme.text = readme;
+
+        pushNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
 
     private fun getToken()
@@ -54,19 +73,26 @@ class MainActivity : AppCompatActivity() {
                         pushType = PNPushType.FCM,
                         deviceId = token,
                         channels = listOf("push-demo") //provide a list of channels to enable push on them.
-                    ).async { result, status ->
-                        Log.d(LOG_TAG, "Status: $status, Result: $result")
+                    ).async { result ->
+                        result.onFailure { exception ->
+                            Log.d(LOG_TAG, "Push Registration Failed: $exception");
+                        }.onSuccess {
                         val txtReadme = findViewById<TextView>(R.id.txtReadme)
                         val readme = SpannableStringBuilder()
                             .bold { append("Instructions:\n\n") }
-                            .append("This application will receive push messages sent to the 'push-demo' channel.\n\n")
-                            .append("Messages sent with the ")
+                            .append("This application will receive push messages sent from ")
+                            .underline { append("https://pubnub.com/demos/push") }
+                            .append("\n\nMessages sent with the ")
                             .bold { append("'data' ") }
                             .append("payload will always be displayed as a notification, regardless of whether the app is in the foreground or background.\n\n")
                             .append("Messages sent with the ")
                             .bold { append("'notification' ") }
                             .append("payload will be shown as a notification when the app is in the background but as a snackbar when the app is in the foreground.")
-                        txtReadme.text = readme;
+                            if (pushNotificationPermission)
+                            {
+                                txtReadme.text = readme;
+                            }
+                        }
                     }
                 }
             } catch (e: Exception) {

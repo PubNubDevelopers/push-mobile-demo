@@ -62,8 +62,13 @@ class FCMHandler : FirebaseMessagingService() {
                 pushType = PNPushType.FCM,
                 deviceId = token,
                 channels = listOf("push-demo") //provide a list of channels to enable push on them.
-            ).async { result, status ->
-                Log.d(LOG_TAG,"Status: $status, Result: $result")
+            ).async { result ->
+                result.onFailure {
+                    exception ->
+                    Log.d(LOG_TAG, "Push Registration Failed: $exception")
+                }.onSuccess {
+                    Log.d(LOG_TAG,"Push Registration Succeeded")
+                }
             }
     }
 
