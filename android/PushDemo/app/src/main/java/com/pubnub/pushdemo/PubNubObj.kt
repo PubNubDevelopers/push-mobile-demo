@@ -1,7 +1,7 @@
 package com.pubnub.pushdemo
 
 import com.google.firebase.installations.FirebaseInstallations
-import com.pubnub.api.PNConfiguration
+import com.pubnub.api.v2.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 
@@ -11,11 +11,9 @@ all Activities.
  */
 class PubNubObj {
     companion object PubNubObj {
-        private val pubNub : PubNub = PubNub(
-            PNConfiguration(UserId(FirebaseInstallations.getInstance().id.toString())).apply {
-                //  Not delaring a publish key since we are only receiving data
-                subscribeKey = BuildConfig.SUBSCRIBE_KEY
-            }
+        private val pubNub = PubNub.create(
+            PNConfiguration.builder(UserId(FirebaseInstallations.getInstance().id.toString()),
+                "sub-c-c75d3e26-120c-49c8-8b7e-f78aa7b6bdc7").build()
         )
     }
 
