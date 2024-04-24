@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val readme = SpannableStringBuilder()
             .bold { append("Instructions:\n\n") }
             .bold { append("Please Wait...\n\n")}
-            .append("Web-based emulator is still loading.  This may take several seconds.  This text will update when the emulator is ready.\n\n")
+            .append("Application is still loading.  This may take several seconds.  This text will update when the device is ready.\n\n")
         txtReadme.text = readme;
 
         pushNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
