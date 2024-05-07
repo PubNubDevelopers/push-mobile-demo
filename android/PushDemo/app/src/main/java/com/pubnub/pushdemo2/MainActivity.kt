@@ -1,9 +1,8 @@
-package com.pubnub.pushdemo
+package com.pubnub.pushdemo2
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -11,18 +10,15 @@ import android.os.Looper
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.underline
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import com.pubnub.api.PubNub
 import com.pubnub.api.enums.PNPushType
+import com.pubnub.pushdemo2.R
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -69,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val token = task.result
                 if (token != null) {
+                    Log.d(LOG_TAG, "Retrieved token: $token");
                     pubnub.addPushNotificationsOnChannels(
                         pushType = PNPushType.FCM,
                         deviceId = token,

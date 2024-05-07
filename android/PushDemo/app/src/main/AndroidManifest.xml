@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <service
-            android:name=".FCMHandler"
+            android:name="com.pubnub.pushdemo2.FCMHandler"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -36,14 +36,14 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_pn" />
+            android:resource="@drawable/ic_launcher2_foreground" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/pubnub_red" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.pubnub.pushdemo2.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace 'com.pubnub.pushdemo'
+    namespace 'com.pubnub.pushdemo2'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.pubnub.pushdemo"
+        applicationId "com.pubnub.pushdemo2"
         minSdk 23
         targetSdkVersion 34
-        versionCode 5
-        versionName "2.2"
+        versionCode 9
+        versionName "2.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,4 +1,4 @@
-package com.pubnub.pushdemo
+package com.pubnub.pushdemo2
 
 import com.google.firebase.installations.FirebaseInstallations
 import com.pubnub.api.v2.PNConfiguration
@@ -13,7 +13,7 @@ class PubNubObj {
     companion object PubNubObj {
         private val pubNub = PubNub.create(
             PNConfiguration.builder(UserId(FirebaseInstallations.getInstance().id.toString()),
-                "sub-c-c75d3e26-120c-49c8-8b7e-f78aa7b6bdc7").build()
+                "sub-c-3fcd12ba-78be-43bd-9403-71f00a9025fa").build()
         )
     }
 

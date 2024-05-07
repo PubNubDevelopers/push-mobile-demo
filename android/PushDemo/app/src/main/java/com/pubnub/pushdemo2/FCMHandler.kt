@@ -1,4 +1,4 @@
-package com.pubnub.pushdemo
+package com.pubnub.pushdemo2
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -18,6 +18,8 @@ class FCMHandler : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         //Called whenever the FCM token is renewed - re-register the device with PubNub
+        return
+        Log.d(LOG_TAG, "New Token Received: $token")
         sendRegistrationToPubNub(token)
     }
 
@@ -27,6 +29,8 @@ class FCMHandler : FirebaseMessagingService() {
         val clientIdentifier = applicationContext.getSharedPreferences("prefs.db", 0).getString("identifier", null)
         var title : String
         var body : String
+
+        Log.d(LOG_TAG, "Message Received from FCM")
 
         // Check if message contains a data payload.
         //  This is always handled by the application regardless of foreground / background.
@@ -58,6 +62,7 @@ class FCMHandler : FirebaseMessagingService() {
     //  Register the device on PubNub Channels to enable push notifications on those channels.
     //  This is called whenever the token changes
     private fun sendRegistrationToPubNub(token : String) {
+        Log.d(LOG_TAG, "Sending Registration token to PubNub")
             pubnub.addPushNotificationsOnChannels(
                 pushType = PNPushType.FCM,
                 deviceId = token,
@@ -83,7 +88,7 @@ class FCMHandler : FirebaseMessagingService() {
         val channelID = getString(R.string.default_notification_channel_id)
 
         var builder = NotificationCompat.Builder(this, channelID)
-            .setSmallIcon(R.drawable.ic_pn)
+            .setSmallIcon(R.drawable.ic_launcher2_foreground)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
